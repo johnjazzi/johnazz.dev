@@ -1,0 +1,165 @@
+section[id]{scroll-margin-top:130px}
+@media(min-width:641px){section[id]{scroll-margin-top:80px}}
+/* ============================================================
+   johnazz.dev — DESIGN STUDY (local exploration, not production)
+   Three distinct compositions: index / fieldnotes / studio
+   ============================================================ */
+:root{
+  --ink:#141414; --muted:#6b6b6b; --faint:#9a9a9a; --rule:#dcdcda;
+  --paper:#fbfbf9; --paper-pure:#ffffff;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --pad:clamp(20px,5vw,72px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);background:var(--paper-pure);
+  font-family:var(--sans);font-size:16px;line-height:1.6}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:1px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:12px;background:#fff;padding:10px 14px;z-index:200}
+@media(max-width:640px){.help .cols{grid-template-columns:1fr}}
+/* ============================================================
+   DIRECTION 2 — FIELDNOTES  (asymmetric editorial spread) — DEFAULT
+   ============================================================ */
+.dir-fieldnotes{background:var(--paper);font-family:var(--sans);color:#1a1a18}
+.dir-fieldnotes .bar{display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;
+  padding:24px var(--pad);border-bottom:1px solid var(--rule)}
+.dir-fieldnotes .bar .who{font-family:var(--serif);font-size:16px}
+.dir-fieldnotes .bar .who span{font-family:var(--sans);font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);display:block;margin-top:3px}
+.dir-fieldnotes .bar nav{margin-left:auto;display:flex;gap:20px;font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase}
+.dir-fieldnotes .bar nav a{text-decoration:none;color:var(--muted);min-height:44px;
+  display:inline-flex;align-items:center}
+.dir-fieldnotes .bar nav a:hover{color:var(--ink)}
+.dir-fieldnotes .wrap{max-width:1240px;margin:0 auto;padding:0 var(--pad)}
+.dir-fieldnotes section{padding:clamp(46px,8vh,96px) 0 0}
+.dir-fieldnotes .col{display:grid;grid-template-columns:minmax(210px,300px) 1fr;gap:clamp(28px,5vw,72px)}
+.dir-fieldnotes .lede{position:sticky;top:70px;align-self:start}
+.dir-fieldnotes .lede h1{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.4vw,30px);
+  line-height:1.28;margin:0 0 16px;letter-spacing:-.01em}
+.dir-fieldnotes .lede p{font-size:14px;line-height:1.72;color:#3c3c38;margin:0 0 14px}
+.dir-fieldnotes .lede .place{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.dir-fieldnotes h2{font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 4px}
+.dir-fieldnotes .rule{height:1px;background:var(--rule);margin:18px 0}
+.dir-fieldnotes .spread{display:grid;grid-template-columns:1.05fr 1fr;
+  gap:clamp(18px,3vw,44px);align-items:start}
+.dir-fieldnotes figure{margin:0}
+.dir-fieldnotes figcaption{font-size:11.5px;line-height:1.55;color:var(--muted);margin-top:9px;
+  max-width:34ch}
+.dir-fieldnotes figcaption b{color:#2a2a26;font-weight:500;font-family:var(--serif);font-size:12.5px}
+.dir-fieldnotes .fig-fat{margin-top:clamp(60px,11vw,150px)}
+.dir-fieldnotes .proj{margin-top:26px}
+.dir-fieldnotes .proj article{display:grid;grid-template-columns:1fr auto;gap:24px;
+  padding:20px 0;border-top:1px solid var(--rule);align-items:start}
+.dir-fieldnotes .proj article:last-child{border-bottom:1px solid var(--rule)}
+.dir-fieldnotes .proj h3{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.6vw,28px);
+  margin:0 0 8px}
+.dir-fieldnotes .proj p{margin:0;font-size:14px;line-height:1.7;color:#3c3c38;max-width:52ch}
+.dir-fieldnotes .proj .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap}
+.dir-fieldnotes .proj a.more{display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+  font-size:12.5px;letter-spacing:.04em;text-decoration:none;color:var(--ink);
+  border-bottom:1px solid var(--ink);min-height:44px}
+/* earlier work: dated index with a hairline spine */
+.dir-fieldnotes .work{margin:2px 0 0;padding:0;list-style:none}
+.dir-fieldnotes .work li{display:grid;grid-template-columns:64px 1fr;gap:clamp(16px,2.4vw,34px);
+  padding:15px 0;border-top:1px solid var(--rule);align-items:baseline}
+.dir-fieldnotes .work li:last-child{border-bottom:1px solid var(--rule)}
+.dir-fieldnotes .work .yr{font-size:11.5px;letter-spacing:.1em;color:var(--muted);
+  text-transform:uppercase;padding-top:2px}
+.dir-fieldnotes .work .nm{font-family:var(--serif);font-size:16px;margin:0 0 3px;display:flex;
+  align-items:center;gap:9px}
+.dir-fieldnotes .work .nm img{width:18px;height:18px;image-rendering:pixelated}
+/* one pixel glyph per project that has one, at full size inside its own entry */
+.dir-fieldnotes .glyph{display:grid;grid-template-columns:104px 1fr;gap:14px 24px;
+  align-items:center;margin:20px 0 0}
+.dir-fieldnotes .glyph img{width:104px;height:104px;image-rendering:pixelated}
+.dir-fieldnotes .glyph p{margin:0;font-size:12.5px;line-height:1.7;color:var(--muted);max-width:34ch}
+.dir-fieldnotes .work p{margin:0;font-size:13.5px;line-height:1.68;color:#3c3c38;max-width:56ch}
+.dir-fieldnotes .work .note{font-size:12.5px;color:var(--muted);margin-top:5px}
+.dir-fieldnotes .work a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+.dir-fieldnotes .work a:hover{color:var(--ink)}
+.dir-fieldnotes .work em.pivot{font-style:normal;color:var(--muted)}
+.dir-fieldnotes .roles{margin:6px 0 0;padding:0;list-style:none}
+.dir-fieldnotes .roles li{display:grid;grid-template-columns:1fr auto;gap:20px;padding:13px 0;
+  border-top:1px solid var(--rule);align-items:baseline;font-size:14.5px}
+.dir-fieldnotes .roles li:last-child{border-bottom:1px solid var(--rule)}
+.dir-fieldnotes .roles .yr{font-size:12.5px;color:var(--muted);letter-spacing:.04em}
+.dir-fieldnotes .roles em{font-style:normal;color:var(--muted);font-size:12.5px;display:block;margin-top:2px}
+.dir-fieldnotes .draft{font-size:11.5px;color:var(--muted);margin-top:12px;letter-spacing:.02em}
+.dir-fieldnotes .tail{padding:clamp(56px,10vh,110px) 0 30px;font-size:12px;color:var(--muted)}
+@media(max-width:900px){
+  .dir-fieldnotes .col{grid-template-columns:1fr}
+  .dir-fieldnotes .lede{position:static}
+  .dir-fieldnotes .spread{grid-template-columns:1fr}
+  .dir-fieldnotes .fig-fat{margin-top:24px}
+}
+@media(max-width:640px){
+  .dir-studio .row .peek{display:none}
+  .dir-studio .mobpeek{display:block;width:min(62%,220px);margin-top:16px;
+    box-shadow:0 4px 18px rgba(0,0,0,.14)}
+}
+/* ============================================================
+   PRODUCT PREVIEW VIEWS  (/nitrate, /canonic)
+   ============================================================ */
+#preview{display:none}
+body.previewing #sitewrap{display:none}
+body.previewing #preview{display:block}
+.pv-banner{background:#141414;color:#fff;font-size:12px;letter-spacing:.06em;
+  padding:10px var(--pad);display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.pv-banner .lab{background:#fff;color:#000;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;font-weight:700}
+.pv-banner a{color:#fff;text-decoration:underline;min-height:44px;display:inline-flex;align-items:center}
+.pv-wrap{max-width:1080px;margin:0 auto;padding:clamp(30px,7vh,80px) var(--pad) 60px}
+.pv-wrap h1{font-size:clamp(28px,4.4vw,52px);line-height:1.06;font-weight:700;margin:0 0 10px;
+  letter-spacing:-.02em}
+.pv-wrap .sub{font-size:16px;color:#555;margin:0 0 30px;max-width:58ch;line-height:1.6}
+.pv-vs{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#777;margin-bottom:26px}
+.pv-shots{display:grid;gap:clamp(20px,3vw,36px);align-items:start}
+.pv-shots.two{grid-template-columns:1fr 1fr}
+.pv-shots figure{margin:0}
+.pv-shots img{border:1px solid var(--rule);background:#fff}
+.pv-shots figcaption{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.6}
+.pv-note{margin-top:34px;border-top:1px solid var(--rule);padding-top:16px;
+  font-size:13px;color:#444;line-height:1.7;max-width:60ch}
+.pv-note b{font-weight:600}
+.pv-back{margin-top:40px;font-size:13px}
+.pv-back a{text-decoration:underline;min-height:44px;display:inline-flex;align-items:center}
+@media(max-width:700px){.pv-shots.two{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+/* ---- site shell (not part of the study) ---------------------------------- */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:#1a1a18;
+  font-family:var(--sans);font-size:16px;line-height:1.6}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:1px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:12px;background:#fff;padding:10px 14px;z-index:200}
+.dir-fieldnotes .bar nav a[aria-current="page"]{color:var(--ink);
+  text-decoration:underline;text-underline-offset:5px}
+.pv-wrap{max-width:1080px;margin:0 auto;padding:clamp(30px,7vh,80px) var(--pad) 60px}
+.pv-wrap h2{font-family:var(--serif);font-weight:400;font-size:19px;margin:26px 0 4px}
+.pv-wrap p{max-width:62ch}
+.pv-cta{display:inline-flex;align-items:center;min-height:44px;font-size:13px;
+  text-decoration:none;border-bottom:1px solid var(--ink)}
+.product-foot{border-top:1px solid var(--rule);margin-top:56px;padding-top:18px;
+  font-size:12px;color:var(--muted)}
+.site-foot{border-top:1px solid var(--rule);padding:20px var(--pad) 40px;
+  font-size:12px;color:var(--muted);line-height:1.8}
+.site-foot .k{letter-spacing:.13em;text-transform:uppercase;margin-right:8px}
+.site-foot a{color:var(--muted)}
+.site-foot a:hover{color:var(--ink)}
+/* the site nav carries two more links than the study's did: let it wrap under
+   the name on narrow screens instead of pushing past the viewport */
+@media(max-width:640px){
+  .dir-fieldnotes .bar{padding-top:18px}
+  .dir-fieldnotes .bar nav{margin-left:0;width:100%;flex-wrap:wrap;gap:8px 16px}
+}

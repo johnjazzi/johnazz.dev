@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>johnazz.dev — portfolio design study</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<style>section[id]{scroll-margin-top:130px}@media(min-width:641px){section[id]{scroll-margin-top:80px}}</style>
+<style>
+/* ============================================================
+   johnazz.dev — DESIGN STUDY (local exploration, not production)
+   Three distinct compositions: index / fieldnotes / studio
+   ============================================================ */
+:root{
+  --ink:#141414; --muted:#6b6b6b; --faint:#9a9a9a; --rule:#dcdcda;
+  --paper:#fbfbf9; --paper-pure:#ffffff;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --pad:clamp(20px,5vw,72px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);background:var(--paper-pure);
+  font-family:var(--sans);font-size:16px;line-height:1.6}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:1px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:12px;background:#fff;padding:10px 14px;z-index:200}
+
+/* ---------- study toolbar (not part of the site design) ---------- */
+.toolbar{position:sticky;top:0;z-index:100;display:flex;flex-wrap:wrap;
+  align-items:center;gap:10px;padding:8px var(--pad);
+  background:#fff;
+  border-bottom:1px solid var(--rule);font-size:12px;letter-spacing:.03em}
+.toolbar .brand{font-weight:600;margin-right:auto;color:var(--muted)}
+.toolbar .brand b{color:var(--ink);font-weight:600}
+.toolbar-group{display:flex;gap:0;border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+.toolbar button{min-height:44px;padding:0 12px;border:0;background:#fff;color:var(--muted);
+  font:inherit;font-size:12px;letter-spacing:.04em;cursor:pointer}
+.toolbar-group button+button{border-left:1px solid var(--rule)}
+.toolbar button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.toolbar .help-btn{min-height:44px;padding:0 12px;border:1px solid var(--rule);background:#fff;
+  border-radius:2px;cursor:pointer;font:inherit;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.help{margin:0;padding:14px var(--pad) 18px;background:#f5f5f2;border-bottom:1px solid var(--rule);
+  font-size:12.5px;line-height:1.65;color:#3a3a3a}
+.help[hidden]{display:none}
+.help h2{margin:0 0 6px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.help code{font-family:ui-monospace,Menlo,monospace;background:#eceae5;padding:1px 5px;border-radius:2px}
+.help ul{margin:6px 0 12px;padding-left:18px}
+.help .cols{display:grid;grid-template-columns:1fr 1fr;gap:6px 40px;max-width:900px}
+@media(max-width:640px){.help .cols{grid-template-columns:1fr}}
+
+/* ---------- direction switching ---------- */
+.dir{display:none}
+body[data-direction="index"] .dir-index{display:block}
+body[data-direction="fieldnotes"] .dir-fieldnotes{display:block}
+body[data-direction="studio"] .dir-studio{display:block}
+
+/* ============================================================
+   DIRECTION 1 — INDEX  (narrow, quiet, closest to reference)
+   ============================================================ */
+.dir-index{font-family:var(--sans);background:var(--paper-pure)}
+.dir-index .bar{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap;
+  padding:26px var(--pad);border-bottom:1px solid #eee;max-width:1180px;margin:0 auto}
+.dir-index .bar .who{font-size:14px;letter-spacing:.01em}
+.dir-index .bar .who span{color:var(--faint);display:block;font-size:12.5px;margin-top:2px}
+.dir-index .bar nav{margin-left:auto;display:flex;gap:22px;font-size:13.5px}
+.dir-index .bar nav a{text-decoration:none;color:var(--muted);min-height:44px;display:inline-flex;align-items:center}
+.dir-index .bar nav a:hover{color:var(--ink)}
+.dir-index .col{max-width:620px;margin:0 auto;padding:0 var(--pad)}
+.dir-index section{padding:clamp(64px,14vh,150px) 0 0}
+.dir-index h1{font-size:1.6rem;font-weight:400;line-height:1.35;margin:0 0 20px;letter-spacing:-.01em}
+.dir-index p{margin:0 0 18px;font-size:15px;line-height:1.75;color:#262626}
+.dir-index .lede{font-size:15px;color:var(--muted)}
+.dir-index h2{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);
+  font-weight:500;margin:0 0 22px}
+.dir-index .plist{margin:0;padding:0;list-style:none}
+.dir-index .plist li{padding:16px 0;border-top:1px solid #ececeb;display:grid;
+  grid-template-columns:1fr auto;gap:16px;align-items:baseline}
+.dir-index .plist li:last-child{border-bottom:1px solid #ececeb}
+.dir-index .plist .nm{font-size:15px}
+.dir-index .plist .nm em{font-style:normal;color:var(--faint);display:block;font-size:13px;margin-top:3px}
+.dir-index .plist a{font-size:12.5px;color:var(--muted);text-decoration:none;
+  min-height:44px;display:inline-flex;align-items:center;gap:6px}
+.dir-index .plist a:hover{color:var(--ink)}
+.dir-index dl.roles{margin:0;font-size:14.5px}
+.dir-index dl.roles div{display:grid;grid-template-columns:1fr auto;gap:14px;
+  padding:12px 0;border-top:1px solid #ececeb;align-items:baseline}
+.dir-index dl.roles div:last-child{border-bottom:1px solid #ececeb}
+.dir-index dl.roles dt{font-weight:400}
+.dir-index dl.roles dd{margin:0;color:var(--faint);font-size:13px}
+.dir-index dl.roles em{font-style:normal;color:var(--muted);display:block;font-size:12.5px;margin-top:2px}
+.dir-index .notecopy{font-size:12px;color:var(--faint);letter-spacing:.02em;margin-top:14px}
+.dir-index .tail{padding:clamp(70px,12vh,130px) 0 30px;font-size:12.5px;color:var(--faint)}
+
+/* ============================================================
+   DIRECTION 2 — FIELDNOTES  (asymmetric editorial spread) — DEFAULT
+   ============================================================ */
+.dir-fieldnotes{background:var(--paper);font-family:var(--sans);color:#1a1a18}
+.dir-fieldnotes .bar{display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;
+  padding:24px var(--pad);border-bottom:1px solid var(--rule)}
+.dir-fieldnotes .bar .who{font-family:var(--serif);font-size:16px}
+.dir-fieldnotes .bar .who span{font-family:var(--sans);font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);display:block;margin-top:3px}
+.dir-fieldnotes .bar nav{margin-left:auto;display:flex;gap:20px;font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase}
+.dir-fieldnotes .bar nav a{text-decoration:none;color:var(--muted);min-height:44px;
+  display:inline-flex;align-items:center}
+.dir-fieldnotes .bar nav a:hover{color:var(--ink)}
+.dir-fieldnotes .wrap{max-width:1240px;margin:0 auto;padding:0 var(--pad)}
+.dir-fieldnotes section{padding:clamp(46px,8vh,96px) 0 0}
+.dir-fieldnotes .col{display:grid;grid-template-columns:minmax(210px,300px) 1fr;gap:clamp(28px,5vw,72px)}
+.dir-fieldnotes .lede{position:sticky;top:70px;align-self:start}
+.dir-fieldnotes .lede h1{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.4vw,30px);
+  line-height:1.28;margin:0 0 16px;letter-spacing:-.01em}
+.dir-fieldnotes .lede p{font-size:14px;line-height:1.72;color:#3c3c38;margin:0 0 14px}
+.dir-fieldnotes .lede .place{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.dir-fieldnotes h2{font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 4px}
+.dir-fieldnotes .rule{height:1px;background:var(--rule);margin:18px 0}
+.dir-fieldnotes .spread{display:grid;grid-template-columns:1.05fr 1fr;
+  gap:clamp(18px,3vw,44px);align-items:start}
+.dir-fieldnotes figure{margin:0}
+.dir-fieldnotes figcaption{font-size:11.5px;line-height:1.55;color:var(--muted);margin-top:9px;
+  max-width:34ch}
+.dir-fieldnotes figcaption b{color:#2a2a26;font-weight:500;font-family:var(--serif);font-size:12.5px}
+.dir-fieldnotes .fig-fat{margin-top:clamp(60px,11vw,150px)}
+.dir-fieldnotes .proj{margin-top:26px}
+.dir-fieldnotes .proj article{display:grid;grid-template-columns:1fr auto;gap:24px;
+  padding:20px 0;border-top:1px solid var(--rule);align-items:start}
+.dir-fieldnotes .proj article:last-child{border-bottom:1px solid var(--rule)}
+.dir-fieldnotes .proj h3{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.6vw,28px);
+  margin:0 0 8px}
+.dir-fieldnotes .proj p{margin:0;font-size:14px;line-height:1.7;color:#3c3c38;max-width:52ch}
+.dir-fieldnotes .proj .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap}
+.dir-fieldnotes .proj a.more{display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+  font-size:12.5px;letter-spacing:.04em;text-decoration:none;color:var(--ink);
+  border-bottom:1px solid var(--ink);min-height:44px}
+/* earlier work: dated index with a hairline spine */
+.dir-fieldnotes .work{margin:2px 0 0;padding:0;list-style:none}
+.dir-fieldnotes .work li{display:grid;grid-template-columns:64px 1fr;gap:clamp(16px,2.4vw,34px);
+  padding:15px 0;border-top:1px solid var(--rule);align-items:baseline}
+.dir-fieldnotes .work li:last-child{border-bottom:1px solid var(--rule)}
+.dir-fieldnotes .work .yr{font-size:11.5px;letter-spacing:.1em;color:var(--muted);
+  text-transform:uppercase;padding-top:2px}
+.dir-fieldnotes .work .nm{font-family:var(--serif);font-size:16px;margin:0 0 3px;display:flex;
+  align-items:center;gap:9px}
+.dir-fieldnotes .work .nm img{width:18px;height:18px;image-rendering:pixelated}
+/* one pixel glyph per project that has one, at full size inside its own entry */
+.dir-fieldnotes .glyph{display:grid;grid-template-columns:104px 1fr;gap:14px 24px;
+  align-items:center;margin:20px 0 0}
+.dir-fieldnotes .glyph img{width:104px;height:104px;image-rendering:pixelated}
+.dir-fieldnotes .glyph p{margin:0;font-size:12.5px;line-height:1.7;color:var(--muted);max-width:34ch}
+.dir-fieldnotes .work p{margin:0;font-size:13.5px;line-height:1.68;color:#3c3c38;max-width:56ch}
+.dir-fieldnotes .work .note{font-size:12.5px;color:var(--muted);margin-top:5px}
+.dir-fieldnotes .work a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+.dir-fieldnotes .work a:hover{color:var(--ink)}
+.dir-fieldnotes .work em.pivot{font-style:normal;color:var(--muted)}
+.dir-fieldnotes .roles{margin:6px 0 0;padding:0;list-style:none}
+.dir-fieldnotes .roles li{display:grid;grid-template-columns:1fr auto;gap:20px;padding:13px 0;
+  border-top:1px solid var(--rule);align-items:baseline;font-size:14.5px}
+.dir-fieldnotes .roles li:last-child{border-bottom:1px solid var(--rule)}
+.dir-fieldnotes .roles .yr{font-size:12.5px;color:var(--muted);letter-spacing:.04em}
+.dir-fieldnotes .roles em{font-style:normal;color:var(--muted);font-size:12.5px;display:block;margin-top:2px}
+.dir-fieldnotes .draft{font-size:11.5px;color:var(--muted);margin-top:12px;letter-spacing:.02em}
+.dir-fieldnotes .tail{padding:clamp(56px,10vh,110px) 0 30px;font-size:12px;color:var(--muted)}
+
+/* ============================================================
+   DIRECTION 3 — STUDIO  (stark oversized typographic index)
+   ============================================================ */
+.dir-studio{background:#fff;color:#000;font-family:Arial,Helvetica,sans-serif}
+.dir-studio .bar{display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+  padding:22px var(--pad);border-bottom:2px solid #000}
+.dir-studio .bar .who{font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.dir-studio .bar nav{margin-left:auto;display:flex;gap:24px;font-size:13px;
+  letter-spacing:.16em;text-transform:uppercase}
+.dir-studio .bar nav a{text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.dir-studio .bar nav a:hover{text-decoration:underline;text-underline-offset:5px}
+.dir-studio .wrap{max-width:1360px;margin:0 auto;padding:0 var(--pad)}
+.dir-studio section{padding:clamp(40px,7vh,80px) 0 0}
+.dir-studio .intro{max-width:52ch;font-size:16px;line-height:1.68;padding:clamp(30px,8vh,90px) 0 0}
+.dir-studio .intro strong{font-weight:700}
+.dir-studio .intro .place{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#666;
+  margin-top:14px}
+.dir-studio .index{margin-top:clamp(30px,6vh,70px);border-top:2px solid #000}
+.dir-studio .row{position:relative;display:block;text-decoration:none;color:#000;
+  border-bottom:2px solid #000;padding:clamp(18px,3.4vh,40px) 0;}
+.dir-studio .row .big{font-size:clamp(2.2rem,11.5vw,9rem);line-height:.95;font-weight:700;
+  letter-spacing:-.03em;text-transform:uppercase;display:block;overflow-wrap:break-word;
+  transition:transform .35s ease}
+.dir-studio .row:hover .big,.dir-studio .row:focus-visible .big{transform:translateX(1.2vw)}
+.dir-studio .row .meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#555}
+.dir-studio .row .meta .num{color:#000;font-weight:700}
+.dir-studio .row .peek{position:absolute;right:0;top:50%;width:clamp(120px,15vw,230px);
+  transform:translateY(-50%) rotate(-1.4deg);opacity:0;pointer-events:none;
+  transition:opacity .35s ease, transform .35s ease;box-shadow:0 6px 26px rgba(0,0,0,.16)}
+.dir-studio .row:hover .peek,.dir-studio .row:focus-visible .peek{opacity:1;transform:translateY(-50%) rotate(0)}
+.dir-studio .mobpeek{display:none}
+.dir-studio .roles{margin:clamp(20px,4vh,44px) 0 0;padding:0;list-style:none;
+  border-top:2px solid #000}
+.dir-studio .roles li{display:grid;grid-template-columns:1fr auto;gap:20px;
+  border-bottom:1px solid #000;padding:15px 0;font-size:15px;align-items:baseline}
+.dir-studio .roles .yr{letter-spacing:.08em;font-size:13px;color:#444}
+.dir-studio .roles em{font-style:normal;color:#666;display:block;font-size:13px;margin-top:2px}
+.dir-studio .draft{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#666;margin-top:14px}
+.dir-studio .tail{padding:clamp(56px,10vh,110px) 0 30px;font-size:12px;color:#555}
+
+@media(max-width:900px){
+  .dir-fieldnotes .col{grid-template-columns:1fr}
+  .dir-fieldnotes .lede{position:static}
+  .dir-fieldnotes .spread{grid-template-columns:1fr}
+  .dir-fieldnotes .fig-fat{margin-top:24px}
+}
+@media(max-width:640px){
+  .dir-studio .row .peek{display:none}
+  .dir-studio .mobpeek{display:block;width:min(62%,220px);margin-top:16px;
+    box-shadow:0 4px 18px rgba(0,0,0,.14)}
+}
+
+/* ============================================================
+   PRODUCT PREVIEW VIEWS  (/nitrate, /canonic)
+   ============================================================ */
+#preview{display:none}
+body.previewing #sitewrap{display:none}
+body.previewing #preview{display:block}
+.pv-banner{background:#141414;color:#fff;font-size:12px;letter-spacing:.06em;
+  padding:10px var(--pad);display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.pv-banner .lab{background:#fff;color:#000;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;font-weight:700}
+.pv-banner a{color:#fff;text-decoration:underline;min-height:44px;display:inline-flex;align-items:center}
+.pv-wrap{max-width:1080px;margin:0 auto;padding:clamp(30px,7vh,80px) var(--pad) 60px}
+.pv-wrap h1{font-size:clamp(28px,4.4vw,52px);line-height:1.06;font-weight:700;margin:0 0 10px;
+  letter-spacing:-.02em}
+.pv-wrap .sub{font-size:16px;color:#555;margin:0 0 30px;max-width:58ch;line-height:1.6}
+.pv-vs{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#777;margin-bottom:26px}
+.pv-shots{display:grid;gap:clamp(20px,3vw,36px);align-items:start}
+.pv-shots.two{grid-template-columns:1fr 1fr}
+.pv-shots figure{margin:0}
+.pv-shots img{border:1px solid var(--rule);background:#fff}
+.pv-shots figcaption{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.6}
+.pv-note{margin-top:34px;border-top:1px solid var(--rule);padding-top:16px;
+  font-size:13px;color:#444;line-height:1.7;max-width:60ch}
+.pv-note b{font-weight:600}
+.pv-back{margin-top:40px;font-size:13px}
+.pv-back a{text-decoration:underline;min-height:44px;display:inline-flex;align-items:center}
+@media(max-width:700px){.pv-shots.two{grid-template-columns:1fr}}
+
+/* ---------- study footer (meta, not site content) ---------- */
+.study-foot{border-top:1px solid var(--rule);padding:20px var(--pad) 40px;
+  font-size:11.5px;color:var(--faint);line-height:1.8;background:#fff}
+.study-foot .k{letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-right:8px}
+.study-foot a{color:var(--faint)}
+.study-foot a:hover{color:var(--ink)}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body data-direction="fieldnotes">
+<a class="skip" href="#sitewrap">Skip to content</a>
+
+<header class="toolbar" role="region" aria-label="Design study controls">
+  <span class="brand">johnazz.dev · <b>design study</b></span>
+  <div class="toolbar-group" role="group" aria-label="Direction">
+    <button type="button" data-dir-btn="index" aria-pressed="false">Index</button>
+    <button type="button" data-dir-btn="fieldnotes" aria-pressed="true">Fieldnotes ★</button>
+    <button type="button" data-dir-btn="studio" aria-pressed="false">Studio</button>
+  </div>
+  <button type="button" class="help-btn" id="helpToggle" aria-expanded="false" aria-controls="help">Help &amp; routes</button>
+</header>
+
+<section class="help" id="help" hidden aria-label="Study help and route plan">
+  <h2>How to read this study</h2>
+  <div class="cols">
+    <div>
+      <p style="margin:0 0 8px">Three independent compositions of the same content — not colour swaps. Default: <code>Fieldnotes</code>.</p>
+      <p style="margin:0 0 8px">Switch with the toolbar or the URL: <code>?direction=index|fieldnotes|studio</code>. Choice persists in <code>localStorage</code>.</p>
+      <p style="margin:0">Each direction carries its own About / Projects / Resume anchors.</p>
+    </div>
+    <div>
+      <h2 style="margin-top:0">Route plan (planned, not built)</h2>
+      <ul>
+        <li><code>/about</code>, <code>/projects</code>, <code>/resume</code> — sections of the one page</li>
+        <li><code>/nitrate</code> → preview view <code>?product=nitrate</code></li>
+        <li><code>/canonic</code> → preview view <code>?product=canonic</code></li>
+      </ul>
+      <p style="margin:0">No store links, downloads or release dates are wired — those are intentionally left out of the study.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PRODUCT PREVIEW VIEWS ======================= -->
+<div id="preview">
+  <div class="pv-banner">
+    <span class="lab">Preview</span>
+    <span>Static page preview from the design study — not a live product page.</span>
+    <a href="?direction=fieldnotes" id="pvBackA">← back to site</a>
+  </div>
+
+  <section class="pv-wrap" id="pv-nitrate" hidden>
+    <h1>Nitrate</h1>
+    <p class="sub">A film-inspired video camera for iPhone. Record, render on device, and save to Photos.</p>
+    <p class="pv-vs">johnazz.dev/nitrate</p>
+    <div class="pv-shots two">
+      <figure>
+        <img src="assets/nitrate-ui.png" alt="Nitrate camera interface">
+        <figcaption><b>Nitrate</b> — camera interface, manual controls on device.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/nitrate-frame.jpg" alt="Existing Nitrate marketing sample">
+        <figcaption><b>Nitrate</b> — an existing marketing sample. Final imagery pending.</figcaption>
+      </figure>
+    </div>
+    <div class="pv-note">
+      <p style="margin:0 0 8px"><b>Draft preview.</b> Copy and assets are placeholder for layout review. No availability, pricing or release status is claimed here.</p>
+      <p style="margin:0">Screenshots are the real supplied product images, used unchanged apart from scaling.</p>
+    </div>
+    <p class="pv-back"><a href="?direction=fieldnotes">← johnazz.dev</a></p>
+  </section>
+
+  <section class="pv-wrap" id="pv-canonic" hidden>
+    <h1>Canonic</h1>
+    <p class="sub">A local-first writing workspace. Plain markdown files on your machine, versioned with Git.</p>
+    <p class="pv-vs">johnazz.dev/canonic</p>
+    <div class="pv-shots">
+      <figure>
+        <img src="assets/canonic.png" alt="Canonic writing workspace">
+        <figcaption><b>Canonic</b> — the editor. Local markdown files, Git history and inline comments, no terminal required.</figcaption>
+      </figure>
+    </div>
+    <div class="pv-note">
+      <p style="margin:0 0 8px"><b>Draft preview.</b> Copy is a placeholder for layout review. No availability, pricing or release status is claimed here.</p>
+      <p style="margin:0">Screenshot is the real supplied product image, used unchanged apart from scaling.</p>
+    </div>
+    <p class="pv-back"><a href="?direction=fieldnotes">← johnazz.dev</a></p>
+  </section>
+</div>
+
+<!-- ============================ THE SITE ============================ -->
+<div id="sitewrap">
+
+<!-- ---------- DIRECTION 1 — INDEX ---------- -->
+<div class="dir dir-index">
+  <div class="bar">
+    <div class="who">John Azzinaro <span>New York</span></div>
+    <nav aria-label="Index sections">
+      <a href="#i-about">About</a><a href="#i-projects">Projects</a><a href="#i-resume">Resume</a>
+    </nav>
+  </div>
+  <div class="col">
+    <section id="i-about">
+      <h1>A product manager who designs and builds software.</h1>
+      <p class="lede">I work on small, deliberate tools — a film-inspired camera for iPhone, and a local-first place to write.</p>
+
+    </section>
+
+    <section id="i-projects">
+      <h2>Projects</h2>
+      <ul class="plist">
+        <li>
+          <span class="nm">Nitrate<em>A film-inspired video camera for iPhone. Record, render on device, save to Photos.</em></span>
+          <a href="?product=nitrate">Preview →</a>
+        </li>
+        <li>
+          <span class="nm">Canonic<em>A local-first writing workspace. Plain markdown, versioned with Git.</em></span>
+          <a href="?product=canonic">Preview →</a>
+        </li>
+        <li>
+          <span class="nm">Canonical v0<em>A Vue SaaS for product artifacts — the first attempt at Canonic. Pivoted to local-first.</em></span>
+          <span style="font-size:12.5px;color:var(--faint)">2024</span>
+        </li>
+        <li>
+          <span class="nm"><img src="assets/versai-bubble.svg" alt="" aria-hidden="true" style="width:16px;height:16px;image-rendering:pixelated;display:inline-block;vertical-align:-3px;margin-right:7px">Versai<em>Real-time translation for iOS. Speech in, translation out, on the phone.</em></span>
+          <span style="font-size:12.5px;color:var(--faint)">2025</span>
+        </li>
+        <li>
+          <span class="nm"><img src="assets/lincoln-8bit.svg" alt="" aria-hidden="true" style="width:16px;height:16px;image-rendering:pixelated;display:inline-block;vertical-align:-3px;margin-right:7px">Robo Lincoln<em>A character-level RNN writing in Lincoln's voice — early language modelling, 2017.</em></span>
+          <span style="font-size:12.5px;color:var(--faint)">2017</span>
+        </li>
+        <li>
+          <span class="nm"><img src="assets/openvelo-16bit.svg" alt="" aria-hidden="true" style="width:16px;height:16px;image-rendering:pixelated;display:inline-block;vertical-align:-3px;margin-right:7px">OpenVelo<em>Terminal trainer control for virtual cycling. Workouts, GPX routes, Strava.</em></span>
+          <span style="font-size:12.5px;color:var(--faint)">2026</span>
+        </li>
+      </ul>
+      <p class="notecopy">Personal photographs to come.</p>
+    </section>
+
+    <section id="i-resume">
+      <h2>Resume</h2>
+      <dl class="roles">
+        <div><dt>Capital One<em>Senior Product Manager</em></dt><dd>2025 – present</dd></div>
+        <div><dt>AWS<em>Senior Product Manager, Technical</em></dt><dd>2022 – 2024</dd></div>
+        <div><dt>RTX<em>Senior Product Manager</em></dt><dd>2019 – 2022</dd></div>
+        <div><dt>Fiat Chrysler<em>Design Engineer</em></dt><dd>2013 – 2016</dd></div>
+      </dl>
+      <p class="draft">Draft — owner confirmation needed.</p>
+    </section>
+
+    <div class="tail">John Azzinaro · New York · johnazz.dev</div>
+  </div>
+</div>
+
+<!-- ---------- DIRECTION 2 — FIELDNOTES (default) ---------- -->
+<div class="dir dir-fieldnotes">
+  <div class="bar">
+    <div class="who">John Azzinaro <span>New York · Portfolio</span></div>
+    <nav aria-label="Fieldnotes sections">
+      <a href="#f-about">About</a><a href="#f-projects">Projects</a><a href="#f-resume">Resume</a>
+    </nav>
+  </div>
+  <div class="wrap">
+
+    <section id="f-about">
+      <div class="col">
+        <div class="lede">
+          <p class="place">Fieldnotes</p>
+          <h1>Product manager who designs and builds software.</h1>
+          <p>New York. I work on small tools where the craft shows — a film-inspired camera, a quiet place to write, and whatever I could not find off the shelf.</p>
+
+        </div>
+        <div class="spread">
+          <figure>
+            <img src="assets/nitrate-frame.jpg" alt="Existing Nitrate marketing sample">
+            <figcaption><b>Nitrate</b> — an existing marketing sample. Final imagery pending.</figcaption>
+          </figure>
+          <figure class="fig-fat">
+            <img src="assets/canonic.png" alt="Canonic, a local-first writing workspace">
+            <figcaption><b>Canonic</b> — a local-first writing workspace. Markdown on your machine, versioned with Git.</figcaption>
+          </figure>
+        </div>
+        <div class="rule"></div>
+        <p style="font-size:12px;letter-spacing:.05em;color:var(--muted);margin:0">Personal photographs to come.</p>
+      </div>
+    </section>
+
+    <section id="f-projects">
+      <div class="col">
+        <div class="lede"><h2>Projects</h2></div>
+        <div class="proj">
+          <article>
+            <div>
+              <h3>Nitrate</h3>
+              <p>A film-inspired video camera for iPhone. Record, render on device, and save to Photos.</p>
+              <a class="more" href="?product=nitrate">Product preview →</a>
+            </div>
+            <span class="tag">iPhone</span>
+          </article>
+          <article>
+            <div>
+              <h3>Canonic</h3>
+              <p>A local-first writing workspace. Plain markdown files you own, versioned with Git, built for product work.</p>
+              <a class="more" href="?product=canonic">Product preview →</a>
+            </div>
+            <span class="tag">Desktop</span>
+          </article>
+        </div>
+
+        <h3 style="font-family:var(--serif);font-weight:400;font-size:19px;margin:44px 0 4px">Earlier work</h3>
+        <ul class="work">
+          <li>
+            <span class="yr">2026</span>
+            <div>
+              <p class="nm"><img src="assets/openvelo-16bit.svg" alt="" aria-hidden="true">OpenVelo</p>
+              <p>Open-source terminal trainer control for virtual cycling. Smart trainer, workouts, GPX routes, Strava.</p>
+              <p class="note"><a href="https://github.com/johnjazzi/open-velo">github.com/johnjazzi/open-velo</a></p>
+              <div class="glyph">
+                <img src="assets/openvelo-16bit.svg" alt="16-bit bicycle mark: two pixel-art wheels joined by a frame">
+                <p>16×16, two wheels and a frame.</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <span class="yr">2025</span>
+            <div>
+              <p class="nm"><img src="assets/versai-bubble.svg" alt="" aria-hidden="true">Versai</p>
+              <p>Real-time translation built for iOS. Speech in one language, translation out in another, running on the phone.</p>
+              <div class="glyph">
+                <img src="assets/versai-bubble.svg" alt="Speech bubble mark with two lines of text inside">
+                <p>A speech bubble — talk in, translation out.</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <span class="yr">2024</span>
+            <div>
+              <p class="nm">Canonical v0</p>
+              <p>A Vue SaaS for product artifacts — the first attempt at the workspace that became Canonic.</p>
+              <p class="note"><em class="pivot">Pivoted</em> — the SaaS shape fought the vision. Rebuilt local-first as <a href="?product=canonic">Canonic</a>.</p>
+            </div>
+          </li>
+          <li>
+            <span class="yr">2017</span>
+            <div>
+              <p class="nm"><img src="assets/lincoln-8bit.svg" alt="" aria-hidden="true">Robo Lincoln</p>
+              <p>A character-level RNN trained on Lincoln's writing to generate new text in his voice — an early language model, before that was a category.</p>
+              <p class="note"><a href="https://github.com/johnjazzi/Robo_lincoln">github.com/johnjazzi/Robo_lincoln</a></p>
+              <div class="glyph">
+                <img src="assets/lincoln-8bit.svg" alt="8-bit portrait mark: a bearded man in a stovepipe hat">
+                <p>16×16, drawn from the model's namesake.</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="f-resume">
+      <div class="col">
+        <div class="lede"><h2>Resume</h2></div>
+        <div>
+          <ul class="roles">
+            <li><span>Capital One<em>Senior Product Manager</em></span><span class="yr">2025 – present</span></li>
+            <li><span>AWS<em>Senior Product Manager, Technical</em></span><span class="yr">2022 – 2024</span></li>
+            <li><span>RTX<em>Senior Product Manager</em></span><span class="yr">2019 – 2022</span></li>
+            <li><span>Fiat Chrysler<em>Design Engineer</em></span><span class="yr">2013 – 2016</span></li>
+          </ul>
+          <p class="draft">Draft — owner confirmation needed.</p>
+          <p style="font-size:12.5px;margin:14px 0 0"><a href="https://github.com/johnjazzi" style="color:var(--muted)">github.com/johnjazzi</a></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="tail">John Azzinaro — New York — johnazz.dev</div>
+  </div>
+</div>
+
+<!-- ---------- DIRECTION 3 — STUDIO ---------- -->
+<div class="dir dir-studio">
+  <div class="bar">
+    <div class="who">John Azzinaro — New York</div>
+    <nav aria-label="Studio sections">
+      <a href="#s-about">About</a><a href="#s-projects">Index</a><a href="#s-resume">Resume</a>
+    </nav>
+  </div>
+  <div class="wrap">
+
+    <section id="s-about">
+      <div class="intro">
+        <p><strong>Product manager who designs and builds software.</strong> I make small tools on my own — a film-inspired iPhone camera, and a local-first writing workspace.</p>
+        <p class="place">New York</p>
+      </div>
+    </section>
+
+    <section id="s-projects">
+      <div class="index">
+        <a class="row" href="?product=nitrate">
+          <span class="big">Nitrate</span>
+          <span class="meta"><span class="num">01</span><span>Film-inspired camera for iPhone</span><span>Record · render on device</span></span>
+          <span class="mobpeek"><img src="assets/nitrate-frame.jpg" alt="Existing Nitrate marketing sample"></span>
+          <img class="peek" src="assets/nitrate-frame.jpg" alt="">
+        </a>
+        <a class="row" href="?product=canonic">
+          <span class="big">Canonic</span>
+          <span class="meta"><span class="num">02</span><span>Local-first writing workspace</span><span>Markdown · Git</span></span>
+          <span class="mobpeek"><img src="assets/canonic.png" alt="Canonic writing workspace"></span>
+          <img class="peek" src="assets/canonic.png" alt="">
+        </a>
+        <a class="row" href="https://github.com/johnjazzi/Robo_lincoln">
+          <span class="big">Robo&nbsp;Lincoln</span>
+          <span class="meta"><span class="num">03</span><span>RNN writing in Lincoln's voice</span><span>2017 · Early language modelling</span></span>
+          <span class="mobpeek"><img src="assets/lincoln-8bit.svg" alt="" style="width:64px;height:64px;image-rendering:pixelated"></span>
+          <img class="peek" src="assets/lincoln-8bit.svg" alt="" style="padding:22px;image-rendering:pixelated">
+        </a>
+        <a class="row" href="https://github.com/johnjazzi/open-velo">
+          <span class="big">OpenVelo</span>
+          <span class="meta"><span class="num">04</span><span>Terminal trainer control</span><span>2026 · Python</span></span>
+          <span class="mobpeek"><img src="assets/openvelo-16bit.svg" alt="" style="width:64px;height:64px;image-rendering:pixelated"></span>
+          <img class="peek" src="assets/openvelo-16bit.svg" alt="" style="padding:22px;image-rendering:pixelated">
+        </a>
+        <a class="row" href="https://github.com/johnjazzi/versai-react-native">
+          <span class="big">Versai</span>
+          <span class="meta"><span class="num">05</span><span>Real-time translation for iOS</span><span>2025</span></span>
+          <span class="mobpeek"><img src="assets/versai-bubble.svg" alt="" style="width:64px;height:64px;image-rendering:pixelated"></span>
+          <img class="peek" src="assets/versai-bubble.svg" alt="" style="padding:22px;image-rendering:pixelated">
+        </a>
+      </div>
+    </section>
+
+    <section id="s-resume">
+      <ul class="roles">
+        <li><span>Capital One<em>Senior Product Manager</em></span><span class="yr">2025 – present</span></li>
+        <li><span>AWS<em>Senior Product Manager, Technical</em></span><span class="yr">2022 – 2024</span></li>
+        <li><span>RTX<em>Senior Product Manager</em></span><span class="yr">2019 – 2022</span></li>
+        <li><span>Fiat Chrysler<em>Design Engineer</em></span><span class="yr">2013 – 2016</span></li>
+      </ul>
+      <p class="draft">Draft — owner confirmation needed</p>
+    </section>
+
+    <div class="tail">John Azzinaro — johnazz.dev</div>
+  </div>
+</div>
+
+</div><!-- /sitewrap -->
+
+<footer class="study-foot">
+  <p style="margin:0 0 6px"><span class="k">Study footer</span>Local design exploration for johnazz.dev. Not deployed; content is draft.</p>
+  <p style="margin:0 0 6px"><span class="k">Imagery note</span>Existing product imagery; final captures and personal photographs pending.</p>
+  <p style="margin:0 0 6px"><span class="k">References</span><a href="https://www.cedri.cc/about">cedri.cc/about</a> · <a href="https://paco.me">paco.me</a> · <a href="https://rauno.me">rauno.me</a> — composition posture study only, not cloned.</p>
+  <p style="margin:0"><span class="k">Sources</span>Existing local Nitrate product materials and Canonic README. Draft copy; not approved for publication.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var DIRS = ["index","fieldnotes","studio"];
+  var PRODUCTS = ["nitrate","canonic"];
+  var body = document.body;
+
+  function param(name){
+    var m = new RegExp("[?&]"+name+"=([^&]+)").exec(location.search);
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  /* ---- direction ---- */
+  function setDirection(dir, persist){
+    if (DIRS.indexOf(dir) === -1) dir = "fieldnotes";
+    body.dataset.direction = dir;
+    var btns = document.querySelectorAll("[data-dir-btn]");
+    for (var i=0;i<btns.length;i++){
+      btns[i].setAttribute("aria-pressed", String(btns[i].dataset.dirBtn === dir));
+    }
+    if (persist){
+      try { localStorage.setItem("johnazz.study.dir", dir); } catch(e){}
+      var u = new URL(location.href);
+      u.searchParams.set("direction", dir);
+      history.replaceState(null,"",u);
+    }
+  }
+
+  /* ---- product preview ---- */
+  function setProduct(p){
+    var nEl = document.getElementById("pv-nitrate");
+    var cEl = document.getElementById("pv-canonic");
+    var ok = PRODUCTS.indexOf(p) !== -1;
+    body.classList.toggle("previewing", ok);
+    nEl.hidden = p !== "nitrate";
+    cEl.hidden = p !== "canonic";
+    document.title = ok ? (p === "nitrate" ? "Nitrate" : "Canonic") + " — preview" : "johnazz.dev — portfolio design study";
+    if (ok){ window.scrollTo(0,0); }
+  }
+
+  function currentProduct(){ return param("product"); }
+
+  /* ---- init ---- */
+  var qDir = param("direction");
+  var stored = null;
+  try { stored = localStorage.getItem("johnazz.study.dir"); } catch(e){}
+  setDirection(qDir || stored || "fieldnotes", false);
+  setProduct(currentProduct());
+
+  /* ---- toolbar direction buttons ---- */
+  var btns = document.querySelectorAll("[data-dir-btn]");
+  for (var i=0;i<btns.length;i++){
+    btns[i].addEventListener("click", function(){
+      var dir = this.dataset.dirBtn;
+      setProduct(null);
+      if (currentProduct()){ history.replaceState(null,"", location.pathname + "?direction=" + dir); }
+      setDirection(dir, true);
+    });
+  }
+
+  /* ---- back-to-site links inside previews ---- */
+  var backs = document.querySelectorAll('.pv-banner a, .pv-back a');
+  for (var j=0;j<backs.length;j++){
+    backs[j].addEventListener("click", function(ev){
+      ev.preventDefault();
+      setProduct(null);
+      var dir = body.dataset.direction || "fieldnotes";
+      var url = location.pathname + "?direction=" + dir;
+      history.replaceState(null,"",url);
+      window.scrollTo(0,0);
+    });
+  }
+
+  /* ---- help toggle ---- */
+  var help = document.getElementById("help");
+  var helpBtn = document.getElementById("helpToggle");
+  helpBtn.addEventListener("click", function(){
+    var open = help.hidden;
+    help.hidden = !open;
+    helpBtn.setAttribute("aria-expanded", String(open));
+  });
+
+  /* ---- keyboard: 1/2/3 switch directions ---- */
+  document.addEventListener("keydown", function(e){
+    if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var idx = { "1":0, "2":1, "3":2 }[e.key];
+    if (idx !== undefined){ document.querySelector('[data-dir-btn="'+DIRS[idx]+'"]').click(); }
+  });
+})();
+</script>
+</body>
+</html>
