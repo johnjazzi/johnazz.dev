@@ -4,21 +4,52 @@ Personal site for [johnazz.dev](https://johnazz.dev): selected work, a short
 introduction, and product pages for Nitrate and Canonic.
 
 Static HTML and one stylesheet. No build step, no framework, no third-party
-scripts or fonts — open `index.html` or serve the directory and it works.
+scripts or fonts.
 
 ## Layout
 
 ```
-index.html            home — Fieldnotes layout
-nitrate/index.html    Nitrate product page      → /nitrate
-canonic/index.html    Canonic product page      → /canonic
-assets/site.css       the whole stylesheet
-assets/*.png|jpg      product imagery
-assets/*.svg          pixel glyphs + favicon
-design/study.html     the three-direction design study this was built from
-docs/BRIEF.md         brief, project set, asset and route notes
-docs/*.png            render checks at 1440px and 390px
+public/                 ← the only directory that is deployed
+  index.html            home — Fieldnotes layout
+  nitrate/index.html    Nitrate product page      → /nitrate
+  canonic/index.html    Canonic product page      → /canonic
+  404.html              served for unmatched paths
+  _headers              response headers
+  assets/site.css       the whole stylesheet
+  assets/*.png|jpg      product imagery
+  assets/*.svg          pixel glyphs + favicon
+wrangler.jsonc          Cloudflare deploy config (assets-only Worker)
+design/study.html       the three-direction design study this was built from
+docs/BRIEF.md           brief, project set, asset and route notes
 ```
+
+Everything outside `public/` — this README, the design record, the brief, the
+deploy config — is deliberately not published. Verified: those paths 404 in the
+deployed output.
+
+## Deploy
+
+Cloudflare Workers with static assets, built from Git. Any push to `main` builds
+and deploys; other branches get preview URLs.
+
+`wrangler.jsonc` declares an **assets-only Worker** (no `main`), so every request
+is served straight from `public/` without invoking a Worker script — that is what
+keeps requests free and unmetered.
+
+One-time setup in the Cloudflare dashboard:
+
+1. **Workers & Pages → Create application → GitHub**, pick `johnjazzi/johnazz.dev`.
+2. Name the Worker **`johnazz-dev`** — it must match `name` in `wrangler.jsonc`
+   or the Git build fails.
+3. Build command: **leave empty**. Deploy command: `npx wrangler deploy`.
+4. **Save and Deploy**, then confirm the `workers.dev` URL loads.
+5. **Settings → Domains & Routes → Add custom domain** → `johnazz.dev`. The zone
+   is already on Cloudflare, so the DNS record and certificate are created for
+   you. Add `www.johnazz.dev` too if you want it.
+
+Cost: **$0**. Static asset requests are free and unlimited, and Workers Builds on
+the free plan includes 3,000 build minutes/month against a build that takes
+seconds.
 
 ## Design
 
@@ -42,5 +73,6 @@ Draft content, not yet published. Outstanding before this goes live:
 - Personal photographs for the About spread.
 - A clean Canonic capture (the current one shows a local working file path).
 - Owner confirmation of the abbreviated résumé dates and product copy.
-- Nitrate support/privacy/terms URLs must redirect to their live pages rather
-  than being replaced by this site's routes.
+- The Nitrate support/privacy/terms pages stay at `johnjazzi.github.io/Nitrate/`
+  by choice, so `/nitrate` here is a marketing page only and the App Store
+  listing URLs are unchanged.
